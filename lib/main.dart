@@ -7,20 +7,32 @@ main() => runApp(const PerguntasApp());
 class PerguntasAppState extends State<PerguntasApp> {
   var respota = 0;
 
-  void responder() {
+  void _responder() {
     setState(() {
       respota++;
     });
-    // ignore: avoid_print
-    print(respota);
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<String> pergunta = [
-      'Qual sua cor favorita?',
-      'Qual seu animal favorito?'
+    final List<Map<String, Object>> pergunta = [
+      {
+        'texto': 'Qual sua comida favorita?',
+        'respost': ['Lasanha', 'Churrasco', 'Feijão', 'Galinha']
+      },
+      {
+        'texto': 'Qual seu animal favorito?',
+        'respost': ['Cachorro', 'Gato', 'Cobra', 'Leao']
+      },
+      {
+        'texto': 'Qual sua cor favorita?',
+        'respost': ['Azul', 'Rosa', 'Branco', 'Preto']
+      },
     ];
+    List<Widget> resposta = [];
+    for (String textoresposta in pergunta[respota].cast()['respost']) {
+      resposta.add(Botao(textoresposta, _responder));
+    }
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -28,10 +40,8 @@ class PerguntasAppState extends State<PerguntasApp> {
         ),
         body: Column(
           children: <Widget>[
-            Questao(pergunta.elementAt(respota)),
-            const Botao('Resposta 1'),
-            const Botao('Resposta 2'),
-            const Botao('Resposta 3'),
+            Questao(pergunta[respota]['texto'].toString()),
+            ...resposta
           ],
         ),
       ),
