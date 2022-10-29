@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:perguntas/botao.dart';
+import 'package:perguntas/questao.dart';
 
 main() => runApp(const PerguntasApp());
 
@@ -26,28 +28,10 @@ class PerguntasAppState extends State<PerguntasApp> {
         ),
         body: Column(
           children: <Widget>[
-            Text(pergunta.elementAt(respota)),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: Colors.blue,
-                ),
-                onPressed: responder,
-                child: const Text('Resposta 1')),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: Colors.blue,
-                ),
-                onPressed: responder,
-                child: const Text('Resposta 2')),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: Colors.blue,
-                ),
-                onPressed: responder,
-                child: const Text('Resposta 3')),
+            Questao(pergunta.elementAt(respota)),
+            const Botao('Resposta 1'),
+            const Botao('Resposta 2'),
+            const Botao('Resposta 3'),
           ],
         ),
       ),
