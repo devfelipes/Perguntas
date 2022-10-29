@@ -7,43 +7,51 @@ main() => runApp(const PerguntasApp());
 class PerguntasAppState extends State<PerguntasApp> {
   var respota = 0;
 
+  final List<Map<String, Object>> _pergunta = const [
+    {
+      'texto': 'Qual sua comida favorita?',
+      'resposta': ['Lasanha', 'Churrasco', 'Feijão', 'Galinha']
+    },
+    {
+      'texto': 'Qual seu animal favorito?',
+      'resposta': ['Cachorro', 'Gato', 'Cobra', 'Leao']
+    },
+    {
+      'texto': 'Qual sua cor favorita?',
+      'resposta': ['Azul', 'Rosa', 'Branco', 'Preto']
+    },
+  ];
+
   void _responder() {
-    setState(() {
-      respota++;
-    });
+    if (verificacao) {
+      setState(() {
+        respota++;
+      });
+    }
+  }
+
+  bool get verificacao {
+    return respota < _pergunta.length;
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, Object>> pergunta = [
-      {
-        'texto': 'Qual sua comida favorita?',
-        'respost': ['Lasanha', 'Churrasco', 'Feijão', 'Galinha']
-      },
-      {
-        'texto': 'Qual seu animal favorito?',
-        'respost': ['Cachorro', 'Gato', 'Cobra', 'Leao']
-      },
-      {
-        'texto': 'Qual sua cor favorita?',
-        'respost': ['Azul', 'Rosa', 'Branco', 'Preto']
-      },
-    ];
-    List<Widget> resposta = [];
-    for (String textoresposta in pergunta[respota].cast()['respost']) {
-      resposta.add(Botao(textoresposta, _responder));
-    }
+    List<String> resposta =
+        verificacao ? _pergunta[respota].cast()['resposta'] : [];
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Perguntas'),
         ),
-        body: Column(
-          children: <Widget>[
-            Questao(pergunta[respota]['texto'].toString()),
-            ...resposta
-          ],
-        ),
+        body: verificacao
+            ? Column(
+                children: <Widget>[
+                  Questao(_pergunta[respota]['texto'].toString()),
+                  ...resposta.map((t) => Botao(t, _responder)).toList()
+                ],
+              )
+            : null,
       ),
     );
   }
