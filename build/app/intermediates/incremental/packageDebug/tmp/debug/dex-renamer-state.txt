@@ -1,4 +1,4 @@
-#Fri Oct 28 23:47:15 BRT 2022
+#Sun Oct 30 00:59:07 BRT 2022
 base.0=D\:\\cursoFlutter\\perguntas\\perguntas\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
